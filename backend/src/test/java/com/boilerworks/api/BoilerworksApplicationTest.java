@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Import;
 @Import(TestConfig.class)
 class BoilerworksApplicationTest {
 
-    @Test
-    void contextLoads() {
-        // Verifies the Spring context starts successfully
-    }
+  @Test
+  void contextLoads() {
+    // Verifies the Spring context starts successfully
+  }
 }

@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { WorkflowService } from '../../core/services/workflow.service';
 import { AuthService } from '../../core/services/auth.service';
-import { WorkflowDefinition, WorkflowInstance, TransitionLog } from '../../core/models/workflow.model';
+import { WorkflowDefinition } from '../../core/models/workflow.model';
 
 @Component({
   selector: 'app-workflow-detail',

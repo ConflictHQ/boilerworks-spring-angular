@@ -1,15 +1,14 @@
 package com.boilerworks.api.workflow.model;
 
 import jakarta.persistence.*;
+import java.time.Instant;
+import java.util.Map;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.Instant;
-import java.util.Map;
-import java.util.UUID;
 
 @Entity
 @Table(name = "workflow_transition_logs")
@@ -18,33 +17,33 @@ import java.util.UUID;
 @NoArgsConstructor
 public class WorkflowTransitionLog {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "workflow_instance_id", nullable = false)
-    private WorkflowInstance workflowInstance;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "workflow_instance_id", nullable = false)
+  private WorkflowInstance workflowInstance;
 
-    @Column(name = "transition_name", nullable = false)
-    private String transitionName;
+  @Column(name = "transition_name", nullable = false)
+  private String transitionName;
 
-    @Column(name = "from_state", nullable = false)
-    private String fromState;
+  @Column(name = "from_state", nullable = false)
+  private String fromState;
 
-    @Column(name = "to_state", nullable = false)
-    private String toState;
+  @Column(name = "to_state", nullable = false)
+  private String toState;
 
-    @Column(name = "performed_by")
-    private UUID performedBy;
+  @Column(name = "performed_by")
+  private UUID performedBy;
 
-    @Column(name = "performed_at", nullable = false)
-    private Instant performedAt;
+  @Column(name = "performed_at", nullable = false)
+  private Instant performedAt;
 
-    @Column(columnDefinition = "TEXT")
-    private String comment;
+  @Column(columnDefinition = "TEXT")
+  private String comment;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "metadata", columnDefinition = "jsonb")
-    private Map<String, Object> metadata;
+  @JdbcTypeCode(SqlTypes.JSON)
+  @Column(name = "metadata", columnDefinition = "jsonb")
+  private Map<String, Object> metadata;
 }

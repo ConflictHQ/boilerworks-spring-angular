@@ -42,6 +42,10 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('backend/**/*.gradle*', 'backend/gradle/wrapper/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle-
 
+      - name: Check formatting
+        working-directory: backend
+        run: ./gradlew spotlessCheck
+
       - name: Run backend tests
         working-directory: backend
         run: ./gradlew test
@@ -69,7 +73,11 @@ jobs:
 
       - name: Lint
         working-directory: frontend
-        run: npx ng lint 2>/dev/null || true
+        run: npx ng lint
+
+      - name: Check formatting
+        working-directory: frontend
+        run: npm run format:check
 
       - name: Run tests
         working-directory: frontend
