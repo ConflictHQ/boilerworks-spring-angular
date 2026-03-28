@@ -1,11 +1,11 @@
-Build completed: 2026-03-28
+Build completed: 2026-03-27
 
 Backend: Spring Boot 3.4 / Java 24 / Gradle 8.14
 Frontend: Angular 19 / TypeScript
 Database: PostgreSQL 16 / Flyway
 Sessions: Redis 7
 
-Tests: 28 backend (JUnit 5) + 1 frontend (Karma) = 29 total, all passing
+Tests: 28 backend (JUnit 5) + 39 frontend (Karma) = 67 total, all passing
 
 Features:
 - Session-based auth with group-based permissions
