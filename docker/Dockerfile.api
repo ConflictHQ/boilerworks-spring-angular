@@ -1,0 +1,25 @@
+FROM eclipse-temurin:24-jdk AS build
+
+WORKDIR /app
+
+COPY backend/gradlew backend/gradlew
+COPY backend/gradle backend/gradle
+COPY backend/build.gradle.kts backend/build.gradle.kts
+COPY backend/settings.gradle.kts backend/settings.gradle.kts
+COPY backend/gradle.properties backend/gradle.properties
+
+WORKDIR /app/backend
+RUN ./gradlew dependencies --no-daemon || true
+
+COPY backend/src src
+
+RUN ./gradlew bootJar --no-daemon
+
+FROM eclipse-temurin:24-jre
+
+WORKDIR /app
+COPY --from=build /app/backend/build/libs/*.jar app.jar
+
+EXPOSE 8086
+
+ENTRYPOINT ["java", "-jar", "app.jar"]

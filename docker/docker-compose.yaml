@@ -1,0 +1,71 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "5443:5432"
+    environment:
+      POSTGRES_DB: boilerworks
+      POSTGRES_USER: boilerworks
+      POSTGRES_PASSWORD: boilerworks
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U boilerworks"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6386:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ../backend
+      dockerfile: ../docker/Dockerfile.api
+    ports:
+      - "8086:8086"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: boilerworks
+      DB_USER: boilerworks
+      DB_PASSWORD: boilerworks
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      SPRING_SESSION_STORE_TYPE: redis
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8086/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  ui:
+    build:
+      context: ../frontend
+      dockerfile: ../docker/Dockerfile.ui
+    ports:
+      - "4200:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

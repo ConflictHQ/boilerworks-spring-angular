@@ -1,0 +1,11 @@
+package com.boilerworks.api.config;
+
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+
+@Configuration
+@ConditionalOnProperty(name = "spring.session.store-type", havingValue = "redis", matchIfMissing = false)
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 86400)
+public class RedisSessionConfig {
+}
