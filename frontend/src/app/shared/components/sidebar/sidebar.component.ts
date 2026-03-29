@@ -140,7 +140,7 @@ export class SidebarComponent {
 
   private navItems: NavItem[] = [
     { label: 'Dashboard', path: '/dashboard', icon: '\u2302' },
-    { label: 'Products', path: '/products', icon: '\u2756', permission: 'product.view' },
+    { label: 'Items', path: '/items', icon: '\u2756', permission: 'item.view' },
     { label: 'Categories', path: '/categories', icon: '\u2630', permission: 'category.view' },
     { label: 'Forms', path: '/forms', icon: '\u2611', permission: 'form.view' },
     { label: 'Workflows', path: '/workflows', icon: '\u21C4', permission: 'workflow.view' },

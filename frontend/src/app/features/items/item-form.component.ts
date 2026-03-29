@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderComponent } from '../../shared/components/header/header.component';
-import { ProductService } from '../../core/services/product.service';
+import { ItemService } from '../../core/services/item.service';
 import { CategoryService } from '../../core/services/category.service';
 import { Category } from '../../core/models/category.model';
 
 @Component({
-  selector: 'app-product-form',
+  selector: 'app-item-form',
   standalone: true,
   imports: [CommonModule, FormsModule, HeaderComponent],
   template: `
-    <app-header [title]="isEdit ? 'Edit Product' : 'New Product'"></app-header>
+    <app-header [title]="isEdit ? 'Edit Item' : 'New Item'"></app-header>
     <div class="page-content">
       <form class="entity-form" (ngSubmit)="onSubmit()">
         @if (error()) {
@@ -72,14 +72,14 @@ import { Category } from '../../core/models/category.model';
     `,
   ],
 })
-export class ProductFormComponent implements OnInit {
+export class ItemFormComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private productService = inject(ProductService);
+  private itemService = inject(ItemService);
   private categoryService = inject(CategoryService);
 
   isEdit = false;
-  productId = '';
+  itemId = '';
   name = '';
   description = '';
   price = 0;
@@ -95,14 +95,14 @@ export class ProductFormComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.isEdit = true;
-      this.productId = id;
-      this.productService.get(id).subscribe((product) => {
-        this.name = product.name;
-        this.description = product.description || '';
-        this.price = product.price;
-        this.sku = product.sku;
-        this.active = product.active;
-        this.categoryId = product.categoryId || '';
+      this.itemId = id;
+      this.itemService.get(id).subscribe((item) => {
+        this.name = item.name;
+        this.description = item.description || '';
+        this.price = item.price;
+        this.sku = item.sku;
+        this.active = item.active;
+        this.categoryId = item.categoryId || '';
       });
     }
   }
@@ -118,13 +118,13 @@ export class ProductFormComponent implements OnInit {
     };
 
     const obs = this.isEdit
-      ? this.productService.update(this.productId, data)
-      : this.productService.create(data);
+      ? this.itemService.update(this.itemId, data)
+      : this.itemService.create(data);
 
     obs.subscribe({
       next: (response) => {
         if (response.ok) {
-          this.router.navigate(['/products']);
+          this.router.navigate(['/items']);
         } else {
           this.error.set(response.errors?.[0]?.messages?.[0] ?? 'An error occurred');
         }
@@ -134,6 +134,6 @@ export class ProductFormComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/items']);
   }
 }

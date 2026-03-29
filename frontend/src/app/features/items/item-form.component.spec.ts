@@ -2,22 +2,22 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { provideRouter, Router } from '@angular/router';
-import { ProductFormComponent } from './product-form.component';
+import { ItemFormComponent } from './item-form.component';
 import { environment } from '../../../environments/environment';
 
-describe('ProductFormComponent', () => {
-  let component: ProductFormComponent;
-  let fixture: ComponentFixture<ProductFormComponent>;
+describe('ItemFormComponent', () => {
+  let component: ItemFormComponent;
+  let fixture: ComponentFixture<ItemFormComponent>;
   let httpMock: HttpTestingController;
   let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProductFormComponent],
+      imports: [ItemFormComponent],
       providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProductFormComponent);
+    fixture = TestBed.createComponent(ItemFormComponent);
     component = fixture.componentInstance;
     httpMock = TestBed.inject(HttpTestingController);
     router = TestBed.inject(Router);
@@ -46,27 +46,27 @@ describe('ProductFormComponent', () => {
     expect(component.active).toBeTrue();
   });
 
-  it('should submit create request on new product', () => {
+  it('should submit create request on new item', () => {
     spyOn(router, 'navigate');
     fixture.detectChanges();
     httpMock.expectOne(`${environment.apiUrl}/api/categories`).flush([]);
 
-    component.name = 'New Product';
+    component.name = 'New Item';
     component.price = 29.99;
     component.sku = 'NP-001';
-    component.description = 'A new product';
+    component.description = 'A new item';
     component.active = true;
     component.categoryId = '';
 
     component.onSubmit();
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/api/products`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/api/items`);
     expect(req.request.method).toBe('POST');
-    expect(req.request.body.name).toBe('New Product');
+    expect(req.request.body.name).toBe('New Item');
     expect(req.request.body.price).toBe(29.99);
-    req.flush({ ok: true, data: { id: '1', name: 'New Product' } });
+    req.flush({ ok: true, data: { id: '1', name: 'New Item' } });
 
-    expect(router.navigate).toHaveBeenCalledWith(['/products']);
+    expect(router.navigate).toHaveBeenCalledWith(['/items']);
   });
 
   it('should display error on failed submission', () => {
@@ -78,7 +78,7 @@ describe('ProductFormComponent', () => {
     component.sku = 'DUPE';
     component.onSubmit();
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/api/products`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/api/items`);
     req.flush({
       ok: false,
       data: null,
@@ -94,6 +94,6 @@ describe('ProductFormComponent', () => {
     httpMock.expectOne(`${environment.apiUrl}/api/categories`).flush([]);
 
     component.onCancel();
-    expect(router.navigate).toHaveBeenCalledWith(['/products']);
+    expect(router.navigate).toHaveBeenCalledWith(['/items']);
   });
 });

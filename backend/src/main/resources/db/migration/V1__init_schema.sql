@@ -62,8 +62,8 @@ CREATE TABLE categories (
     deleted_by UUID
 );
 
--- Products
-CREATE TABLE products (
+-- Items
+CREATE TABLE items (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255) NOT NULL,
     slug VARCHAR(255) NOT NULL UNIQUE,
@@ -161,9 +161,9 @@ CREATE TABLE workflow_transition_logs (
 );
 
 -- Indexes
-CREATE INDEX idx_products_category ON products(category_id);
-CREATE INDEX idx_products_slug ON products(slug);
-CREATE INDEX idx_products_sku ON products(sku);
+CREATE INDEX idx_items_category ON items(category_id);
+CREATE INDEX idx_items_slug ON items(slug);
+CREATE INDEX idx_items_sku ON items(sku);
 CREATE INDEX idx_categories_slug ON categories(slug);
 CREATE INDEX idx_app_users_email ON app_users(email);
 CREATE INDEX idx_form_definitions_slug ON form_definitions(slug);

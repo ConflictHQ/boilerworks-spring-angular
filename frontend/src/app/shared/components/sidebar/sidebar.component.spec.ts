@@ -20,7 +20,7 @@ describe('SidebarComponent', () => {
     active: true,
     staff: false,
     groups: [],
-    permissions: ['product.view', 'category.view'],
+    permissions: ['item.view', 'category.view'],
   };
 
   beforeEach(async () => {
@@ -56,14 +56,14 @@ describe('SidebarComponent', () => {
 
   it('should show nav items based on permissions', () => {
     const navItems = fixture.nativeElement.querySelectorAll('.nav-item');
-    // Dashboard (no permission needed) + Products + Categories = 3
+    // Dashboard (no permission needed) + Items + Categories = 3
     expect(navItems.length).toBe(3);
 
     const labels = Array.from(navItems).map((el: any) =>
       el.querySelector('.nav-label').textContent.trim()
     );
     expect(labels).toContain('Dashboard');
-    expect(labels).toContain('Products');
+    expect(labels).toContain('Items');
     expect(labels).toContain('Categories');
     expect(labels).not.toContain('Forms');
     expect(labels).not.toContain('Workflows');

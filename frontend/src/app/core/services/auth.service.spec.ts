@@ -42,7 +42,7 @@ describe('AuthService', () => {
       active: true,
       staff: false,
       groups: [],
-      permissions: ['product.view'],
+      permissions: ['item.view'],
     };
 
     service.login('test@example.com', 'password').subscribe();
@@ -55,7 +55,7 @@ describe('AuthService', () => {
 
     expect(service.isAuthenticated()).toBeTrue();
     expect(service.user()?.email).toBe('test@example.com');
-    expect(service.permissions()).toEqual(['product.view']);
+    expect(service.permissions()).toEqual(['item.view']);
   });
 
   it('should not set user on failed login', () => {
@@ -91,7 +91,7 @@ describe('AuthService', () => {
       active: true,
       staff: true,
       groups: ['admin'],
-      permissions: ['product.view', 'category.view'],
+      permissions: ['item.view', 'category.view'],
     };
 
     service.fetchCurrentUser().subscribe();
@@ -123,14 +123,14 @@ describe('AuthService', () => {
       active: true,
       staff: false,
       groups: [],
-      permissions: ['product.view', 'category.view'],
+      permissions: ['item.view', 'category.view'],
     };
 
     service.fetchCurrentUser().subscribe();
     httpMock.expectOne(`${environment.apiUrl}/api/auth/me`).flush({ ok: true, data: mockUser });
 
-    expect(service.hasPermission('product.view')).toBeTrue();
-    expect(service.hasPermission('product.delete')).toBeFalse();
+    expect(service.hasPermission('item.view')).toBeTrue();
+    expect(service.hasPermission('item.delete')).toBeFalse();
   });
 
   it('should check hasAnyPermission correctly', () => {
@@ -142,13 +142,13 @@ describe('AuthService', () => {
       active: true,
       staff: false,
       groups: [],
-      permissions: ['product.view'],
+      permissions: ['item.view'],
     };
 
     service.fetchCurrentUser().subscribe();
     httpMock.expectOne(`${environment.apiUrl}/api/auth/me`).flush({ ok: true, data: mockUser });
 
-    expect(service.hasAnyPermission('product.view', 'category.view')).toBeTrue();
+    expect(service.hasAnyPermission('item.view', 'category.view')).toBeTrue();
     expect(service.hasAnyPermission('category.view', 'form.view')).toBeFalse();
   });
 });

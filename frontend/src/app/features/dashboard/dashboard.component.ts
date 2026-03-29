@@ -16,18 +16,18 @@ import { AuthService } from '../../core/services/auth.service';
         <p>Boilerworks Spring Boot + Angular admin panel.</p>
       </div>
       <div class="dashboard-grid">
-        @if (auth.hasPermission('product.view')) {
-          <a routerLink="/products" class="dashboard-card">
+        @if (auth.hasPermission('item.view')) {
+          <a routerLink="/items" class="dashboard-card">
             <div class="card-icon">\u2756</div>
-            <h3>Products</h3>
-            <p>Manage product catalogue</p>
+            <h3>Items</h3>
+            <p>Manage item catalogue</p>
           </a>
         }
         @if (auth.hasPermission('category.view')) {
           <a routerLink="/categories" class="dashboard-card">
             <div class="card-icon">\u2630</div>
             <h3>Categories</h3>
-            <p>Organize product categories</p>
+            <p>Organize item categories</p>
           </a>
         }
         @if (auth.hasPermission('form.view')) {

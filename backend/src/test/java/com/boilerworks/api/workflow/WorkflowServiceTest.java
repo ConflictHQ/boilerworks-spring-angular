@@ -69,13 +69,13 @@ class WorkflowServiceTest {
     WorkflowDefinition def = createApprovalWorkflow();
 
     StartInstanceRequest request = new StartInstanceRequest();
-    request.setEntityType("Product");
+    request.setEntityType("Item");
     request.setEntityId("test-123");
 
     WorkflowInstance instance = workflowService.startInstance(def.getId(), request);
     assertThat(instance.getCurrentState()).isEqualTo("draft");
     assertThat(instance.isComplete()).isFalse();
-    assertThat(instance.getEntityType()).isEqualTo("Product");
+    assertThat(instance.getEntityType()).isEqualTo("Item");
   }
 
   @Test

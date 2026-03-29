@@ -20,7 +20,7 @@ describe('DashboardComponent', () => {
     active: true,
     staff: true,
     groups: ['admin'],
-    permissions: ['product.view', 'category.view', 'form.view', 'workflow.view'],
+    permissions: ['item.view', 'category.view', 'form.view', 'workflow.view'],
   };
 
   beforeEach(async () => {
@@ -57,7 +57,7 @@ describe('DashboardComponent', () => {
   it('should render dashboard cards for permitted features', () => {
     const cards = fixture.nativeElement.querySelectorAll('.dashboard-card');
     expect(cards.length).toBe(4);
-    expect(cards[0].textContent).toContain('Products');
+    expect(cards[0].textContent).toContain('Items');
     expect(cards[1].textContent).toContain('Categories');
     expect(cards[2].textContent).toContain('Forms');
     expect(cards[3].textContent).toContain('Workflows');

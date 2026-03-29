@@ -1,4 +1,4 @@
-export interface Product {
+export interface Item {
   id: string;
   name: string;
   slug: string;
@@ -12,7 +12,7 @@ export interface Product {
   updatedAt: string;
 }
 
-export interface CreateProductRequest {
+export interface CreateItemRequest {
   name: string;
   description?: string;
   price: number;
@@ -21,7 +21,7 @@ export interface CreateProductRequest {
   categoryId?: string;
 }
 
-export interface UpdateProductRequest {
+export interface UpdateItemRequest {
   name?: string;
   description?: string;
   price?: number;

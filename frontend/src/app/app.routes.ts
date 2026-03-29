@@ -9,19 +9,19 @@ export const routes: Routes = [
     loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent),
   },
   {
-    path: 'products',
-    canActivate: [authGuard, permissionGuard('product.view')],
-    loadComponent: () => import('./features/products/product-list.component').then(m => m.ProductListComponent),
+    path: 'items',
+    canActivate: [authGuard, permissionGuard('item.view')],
+    loadComponent: () => import('./features/items/item-list.component').then(m => m.ItemListComponent),
   },
   {
-    path: 'products/new',
-    canActivate: [authGuard, permissionGuard('product.add')],
-    loadComponent: () => import('./features/products/product-form.component').then(m => m.ProductFormComponent),
+    path: 'items/new',
+    canActivate: [authGuard, permissionGuard('item.add')],
+    loadComponent: () => import('./features/items/item-form.component').then(m => m.ItemFormComponent),
   },
   {
-    path: 'products/:id/edit',
-    canActivate: [authGuard, permissionGuard('product.change')],
-    loadComponent: () => import('./features/products/product-form.component').then(m => m.ProductFormComponent),
+    path: 'items/:id/edit',
+    canActivate: [authGuard, permissionGuard('item.change')],
+    loadComponent: () => import('./features/items/item-form.component').then(m => m.ItemFormComponent),
   },
   {
     path: 'categories',

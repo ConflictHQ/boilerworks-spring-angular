@@ -6,9 +6,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.boilerworks.api.TestConfig;
-import com.boilerworks.api.model.Product;
+import com.boilerworks.api.model.Item;
 import com.boilerworks.api.repository.CategoryRepository;
-import com.boilerworks.api.repository.ProductRepository;
+import com.boilerworks.api.repository.ItemRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.math.BigDecimal;
 import java.util.Map;
@@ -27,28 +27,28 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @Import(TestConfig.class)
 @Transactional
-class ProductControllerTest {
+class ItemControllerTest {
 
   @Autowired private MockMvc mockMvc;
 
   @Autowired private ObjectMapper objectMapper;
 
-  @Autowired private ProductRepository productRepository;
+  @Autowired private ItemRepository itemRepository;
 
   @Autowired private CategoryRepository categoryRepository;
 
   @BeforeEach
   void setUp() {
-    productRepository.deleteAll();
+    itemRepository.deleteAll();
     categoryRepository.deleteAll();
   }
 
   @Test
-  @WithMockUser(authorities = {"product.add", "product.view"})
-  void createProduct() throws Exception {
+  @WithMockUser(authorities = {"item.add", "item.view"})
+  void createItem() throws Exception {
     mockMvc
         .perform(
-            post("/api/products")
+            post("/api/items")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(
                     objectMapper.writeValueAsString(
@@ -58,16 +58,16 @@ class ProductControllerTest {
         .andExpect(jsonPath("$.data.name").value("Widget"))
         .andExpect(jsonPath("$.data.slug").value("widget"));
 
-    Product product = productRepository.findByName("Widget").orElseThrow();
-    assertThat(product.getPrice()).isEqualByComparingTo("9.99");
-    assertThat(product.getSku()).isEqualTo("WDG-001");
+    Item item = itemRepository.findByName("Widget").orElseThrow();
+    assertThat(item.getPrice()).isEqualByComparingTo("9.99");
+    assertThat(item.getSku()).isEqualTo("WDG-001");
   }
 
   @Test
-  void createProductDeniedWithoutAuth() throws Exception {
+  void createItemDeniedWithoutAuth() throws Exception {
     mockMvc
         .perform(
-            post("/api/products")
+            post("/api/items")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(
                     objectMapper.writeValueAsString(
@@ -76,11 +76,11 @@ class ProductControllerTest {
   }
 
   @Test
-  @WithMockUser(authorities = {"product.view"})
-  void createProductDeniedWithoutPermission() throws Exception {
+  @WithMockUser(authorities = {"item.view"})
+  void createItemDeniedWithoutPermission() throws Exception {
     mockMvc
         .perform(
-            post("/api/products")
+            post("/api/items")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(
                     objectMapper.writeValueAsString(
@@ -89,61 +89,61 @@ class ProductControllerTest {
   }
 
   @Test
-  @WithMockUser(authorities = {"product.view"})
-  void listProducts() throws Exception {
-    Product p = new Product();
-    p.setName("Test Product");
-    p.setSlug("test-product");
+  @WithMockUser(authorities = {"item.view"})
+  void listItems() throws Exception {
+    Item p = new Item();
+    p.setName("Test Item");
+    p.setSlug("test-item");
     p.setPrice(BigDecimal.valueOf(19.99));
     p.setSku("TST-001");
-    productRepository.save(p);
+    itemRepository.save(p);
 
     mockMvc
-        .perform(get("/api/products"))
+        .perform(get("/api/items"))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$[0].name").value("Test Product"));
+        .andExpect(jsonPath("$[0].name").value("Test Item"));
   }
 
   @Test
-  @WithMockUser(authorities = {"product.view", "product.change"})
-  void updateProduct() throws Exception {
-    Product p = new Product();
+  @WithMockUser(authorities = {"item.view", "item.change"})
+  void updateItem() throws Exception {
+    Item p = new Item();
     p.setName("Old Name");
     p.setSlug("old-name");
     p.setPrice(BigDecimal.valueOf(10.00));
     p.setSku("OLD-001");
-    p = productRepository.save(p);
+    p = itemRepository.save(p);
 
     mockMvc
         .perform(
-            put("/api/products/" + p.getId())
+            put("/api/items/" + p.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(Map.of("name", "New Name"))))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.ok").value(true))
         .andExpect(jsonPath("$.data.name").value("New Name"));
 
-    Product updated = productRepository.findById(p.getId()).orElseThrow();
+    Item updated = itemRepository.findById(p.getId()).orElseThrow();
     assertThat(updated.getName()).isEqualTo("New Name");
     assertThat(updated.getSlug()).isEqualTo("new-name");
   }
 
   @Test
-  @WithMockUser(authorities = {"product.view", "product.delete"})
-  void softDeleteProduct() throws Exception {
-    Product p = new Product();
+  @WithMockUser(authorities = {"item.view", "item.delete"})
+  void softDeleteItem() throws Exception {
+    Item p = new Item();
     p.setName("To Delete");
     p.setSlug("to-delete");
     p.setPrice(BigDecimal.valueOf(5.00));
     p.setSku("DEL-001");
-    p = productRepository.save(p);
+    p = itemRepository.save(p);
 
     mockMvc
-        .perform(delete("/api/products/" + p.getId()))
+        .perform(delete("/api/items/" + p.getId()))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.ok").value(true));
 
     // Soft-deleted: findAll should not return it (due to @SQLRestriction)
-    assertThat(productRepository.findAll()).isEmpty();
+    assertThat(itemRepository.findAll()).isEmpty();
   }
 }

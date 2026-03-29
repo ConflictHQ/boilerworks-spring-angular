@@ -1,9 +1,9 @@
 -- Seed permissions
 INSERT INTO permissions (codename, name, description) VALUES
-    ('product.view', 'View products', 'Can view product listings'),
-    ('product.add', 'Add products', 'Can create new products'),
-    ('product.change', 'Change products', 'Can edit existing products'),
-    ('product.delete', 'Delete products', 'Can delete products'),
+    ('item.view', 'View items', 'Can view item listings'),
+    ('item.add', 'Add items', 'Can create new items'),
+    ('item.change', 'Change items', 'Can edit existing items'),
+    ('item.delete', 'Delete items', 'Can delete items'),
     ('category.view', 'View categories', 'Can view category listings'),
     ('category.add', 'Add categories', 'Can create new categories'),
     ('category.change', 'Change categories', 'Can edit existing categories'),
@@ -22,7 +22,7 @@ INSERT INTO permissions (codename, name, description) VALUES
 -- Seed groups
 INSERT INTO user_groups (id, name, description) VALUES
     ('a0000000-0000-0000-0000-000000000001', 'Administrators', 'Full system access'),
-    ('a0000000-0000-0000-0000-000000000002', 'Editors', 'Can manage products, categories, forms, and workflows'),
+    ('a0000000-0000-0000-0000-000000000002', 'Editors', 'Can manage items, categories, forms, and workflows'),
     ('a0000000-0000-0000-0000-000000000003', 'Viewers', 'Read-only access');
 
 -- Administrators get all permissions

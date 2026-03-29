@@ -2,9 +2,9 @@ package com.boilerworks.api.service;
 
 import com.boilerworks.api.dto.*;
 import com.boilerworks.api.model.Category;
-import com.boilerworks.api.model.Product;
+import com.boilerworks.api.model.Item;
 import com.boilerworks.api.repository.CategoryRepository;
-import com.boilerworks.api.repository.ProductRepository;
+import com.boilerworks.api.repository.ItemRepository;
 import com.boilerworks.api.security.BoilerworksUserDetails;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -17,97 +17,97 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ProductService {
+public class ItemService {
 
-  private final ProductRepository productRepository;
+  private final ItemRepository itemRepository;
   private final CategoryRepository categoryRepository;
 
   @Transactional(readOnly = true)
-  public List<ProductDto> findAll(String search) {
-    List<Product> products;
+  public List<ItemDto> findAll(String search) {
+    List<Item> items;
     if (search != null && !search.isBlank()) {
-      products = productRepository.search(search);
+      items = itemRepository.search(search);
     } else {
-      products = productRepository.findAll();
+      items = itemRepository.findAll();
     }
-    return products.stream().map(ProductDto::from).toList();
+    return items.stream().map(ItemDto::from).toList();
   }
 
   @Transactional(readOnly = true)
-  public ProductDto findById(UUID id) {
-    Product product =
-        productRepository
+  public ItemDto findById(UUID id) {
+    Item item =
+        itemRepository
             .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Product not found"));
-    return ProductDto.from(product);
+            .orElseThrow(() -> new EntityNotFoundException("Item not found"));
+    return ItemDto.from(item);
   }
 
-  public Product create(CreateProductRequest request) {
-    if (productRepository.existsBySku(request.getSku())) {
+  public Item create(CreateItemRequest request) {
+    if (itemRepository.existsBySku(request.getSku())) {
       throw new IllegalArgumentException("SKU already exists");
     }
 
-    Product product = new Product();
-    product.setName(request.getName());
-    product.setSlug(SlugUtil.slugify(request.getName()));
-    product.setDescription(request.getDescription());
-    product.setPrice(request.getPrice());
-    product.setSku(request.getSku());
-    product.setActive(request.isActive());
+    Item item = new Item();
+    item.setName(request.getName());
+    item.setSlug(SlugUtil.slugify(request.getName()));
+    item.setDescription(request.getDescription());
+    item.setPrice(request.getPrice());
+    item.setSku(request.getSku());
+    item.setActive(request.isActive());
 
     if (request.getCategoryId() != null) {
       Category category =
           categoryRepository
               .findById(request.getCategoryId())
               .orElseThrow(() -> new EntityNotFoundException("Category not found"));
-      product.setCategory(category);
+      item.setCategory(category);
     }
 
-    return productRepository.save(product);
+    return itemRepository.save(item);
   }
 
-  public Product update(UUID id, UpdateProductRequest request) {
-    Product product =
-        productRepository
+  public Item update(UUID id, UpdateItemRequest request) {
+    Item item =
+        itemRepository
             .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Product not found"));
+            .orElseThrow(() -> new EntityNotFoundException("Item not found"));
 
     if (request.getName() != null) {
-      product.setName(request.getName());
-      product.setSlug(SlugUtil.slugify(request.getName()));
+      item.setName(request.getName());
+      item.setSlug(SlugUtil.slugify(request.getName()));
     }
     if (request.getDescription() != null) {
-      product.setDescription(request.getDescription());
+      item.setDescription(request.getDescription());
     }
     if (request.getPrice() != null) {
-      product.setPrice(request.getPrice());
+      item.setPrice(request.getPrice());
     }
     if (request.getSku() != null) {
-      product.setSku(request.getSku());
+      item.setSku(request.getSku());
     }
     if (request.getActive() != null) {
-      product.setActive(request.getActive());
+      item.setActive(request.getActive());
     }
     if (request.getCategoryId() != null) {
       Category category =
           categoryRepository
               .findById(request.getCategoryId())
               .orElseThrow(() -> new EntityNotFoundException("Category not found"));
-      product.setCategory(category);
+      item.setCategory(category);
     }
 
-    return productRepository.save(product);
+    return itemRepository.save(item);
   }
 
   public void softDelete(UUID id) {
-    Product product =
-        productRepository
+    Item item =
+        itemRepository
             .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Product not found"));
+            .orElseThrow(() -> new EntityNotFoundException("Item not found"));
 
     UUID userId = getCurrentUserId();
-    product.softDelete(userId);
-    productRepository.save(product);
+    item.softDelete(userId);
+    itemRepository.save(item);
   }
 
   private UUID getCurrentUserId() {

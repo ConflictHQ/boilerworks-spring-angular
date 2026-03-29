@@ -2,16 +2,16 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
-import { ProductListComponent } from './product-list.component';
+import { ItemListComponent } from './item-list.component';
 import { environment } from '../../../environments/environment';
-import { Product } from '../../core/models/product.model';
+import { Item } from '../../core/models/item.model';
 
-describe('ProductListComponent', () => {
-  let component: ProductListComponent;
-  let fixture: ComponentFixture<ProductListComponent>;
+describe('ItemListComponent', () => {
+  let component: ItemListComponent;
+  let fixture: ComponentFixture<ItemListComponent>;
   let httpMock: HttpTestingController;
 
-  const mockProducts: Product[] = [
+  const mockItems: Item[] = [
     {
       id: '1',
       name: 'Widget',
@@ -42,11 +42,11 @@ describe('ProductListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProductListComponent],
+      imports: [ItemListComponent],
       providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProductListComponent);
+    fixture = TestBed.createComponent(ItemListComponent);
     component = fixture.componentInstance;
     httpMock = TestBed.inject(HttpTestingController);
   });
@@ -57,13 +57,13 @@ describe('ProductListComponent', () => {
 
   it('should create', () => {
     fixture.detectChanges();
-    httpMock.expectOne(`${environment.apiUrl}/api/products`).flush([]);
+    httpMock.expectOne(`${environment.apiUrl}/api/items`).flush([]);
     expect(component).toBeTruthy();
   });
 
-  it('should render product rows after loading', () => {
+  it('should render item rows after loading', () => {
     fixture.detectChanges();
-    httpMock.expectOne(`${environment.apiUrl}/api/products`).flush(mockProducts);
+    httpMock.expectOne(`${environment.apiUrl}/api/items`).flush(mockItems);
     fixture.detectChanges();
 
     const rows = fixture.nativeElement.querySelectorAll('tbody tr');
@@ -73,19 +73,19 @@ describe('ProductListComponent', () => {
     expect(rows[1].textContent).toContain('Gadget');
   });
 
-  it('should show empty state when no products', () => {
+  it('should show empty state when no items', () => {
     fixture.detectChanges();
-    httpMock.expectOne(`${environment.apiUrl}/api/products`).flush([]);
+    httpMock.expectOne(`${environment.apiUrl}/api/items`).flush([]);
     fixture.detectChanges();
 
     const emptyCell = fixture.nativeElement.querySelector('.empty-state');
     expect(emptyCell).toBeTruthy();
-    expect(emptyCell.textContent).toContain('No products found');
+    expect(emptyCell.textContent).toContain('No items found');
   });
 
   it('should display active/inactive badges', () => {
     fixture.detectChanges();
-    httpMock.expectOne(`${environment.apiUrl}/api/products`).flush(mockProducts);
+    httpMock.expectOne(`${environment.apiUrl}/api/items`).flush(mockItems);
     fixture.detectChanges();
 
     const badges = fixture.nativeElement.querySelectorAll('.badge');

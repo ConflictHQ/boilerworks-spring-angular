@@ -70,7 +70,7 @@ describe('permissionGuard', () => {
   });
 
   it('should redirect to login when not authenticated', () => {
-    const guard = permissionGuard('product.view');
+    const guard = permissionGuard('item.view');
     const result = TestBed.runInInjectionContext(() => guard({} as any, {} as any));
     expect(result).toBeInstanceOf(UrlTree);
     expect((result as UrlTree).toString()).toBe('/login');
@@ -88,11 +88,11 @@ describe('permissionGuard', () => {
         active: true,
         staff: false,
         groups: [],
-        permissions: ['product.view', 'product.change'],
+        permissions: ['item.view', 'item.change'],
       },
     });
 
-    const guard = permissionGuard('product.view');
+    const guard = permissionGuard('item.view');
     const result = TestBed.runInInjectionContext(() => guard({} as any, {} as any));
     expect(result).toBeTrue();
   });
@@ -113,7 +113,7 @@ describe('permissionGuard', () => {
       },
     });
 
-    const guard = permissionGuard('product.view');
+    const guard = permissionGuard('item.view');
     const result = TestBed.runInInjectionContext(() => guard({} as any, {} as any));
     expect(result).toBeInstanceOf(UrlTree);
     expect((result as UrlTree).toString()).toBe('/dashboard');

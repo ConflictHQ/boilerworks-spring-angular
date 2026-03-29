@@ -15,7 +15,7 @@ Enterprise-grade Java backend with Angular frontend for banking, fintech, and re
 ## Features
 
 - Session-based authentication with group-based permissions
-- Products + Categories CRUD with soft deletes and audit trails
+- Items + Categories CRUD with soft deletes and audit trails
 - Forms engine (JSON schema, dynamic rendering, validation)
 - Workflow engine (state machine, transitions, audit log)
 - Boilerworks dark admin theme
@@ -67,7 +67,7 @@ cd docker && docker compose up -d --build
 backend/
   src/main/java/com/boilerworks/api/
     config/          # Spring Security, JPA auditing, Redis session
-    model/           # JPA entities (AuditableEntity, Product, Category, User, Group, Permission)
+    model/           # JPA entities (AuditableEntity, Item, Category, User, Group, Permission)
     repository/      # Spring Data JPA repositories
     service/         # Business logic
     controller/      # REST controllers
@@ -84,7 +84,7 @@ frontend/
   src/app/
     core/            # Services, guards, interceptors, models
     shared/          # Reusable components (sidebar, header, dynamic form)
-    features/        # Feature modules (auth, dashboard, products, categories, forms, workflows)
+    features/        # Feature modules (auth, dashboard, items, categories, forms, workflows)
 
 docker/
   docker-compose.yaml
@@ -100,8 +100,8 @@ docker/
 | POST | `/api/auth/login` | Login | Public |
 | GET | `/api/auth/me` | Current user | Authenticated |
 | POST | `/api/auth/logout` | Logout | Authenticated |
-| GET/POST | `/api/products` | List/Create products | `product.view` / `product.add` |
-| GET/PUT/DELETE | `/api/products/{id}` | Get/Update/Delete product | `product.view/change/delete` |
+| GET/POST | `/api/items` | List/Create items | `item.view` / `item.add` |
+| GET/PUT/DELETE | `/api/items/{id}` | Get/Update/Delete item | `item.view/change/delete` |
 | GET/POST | `/api/categories` | List/Create categories | `category.view` / `category.add` |
 | GET/PUT/DELETE | `/api/categories/{id}` | Get/Update/Delete category | `category.view/change/delete` |
 | GET/POST | `/api/forms` | List/Create forms | `form.view` / `form.add` |

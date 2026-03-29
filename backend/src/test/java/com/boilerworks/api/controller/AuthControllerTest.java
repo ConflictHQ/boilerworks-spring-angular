@@ -51,7 +51,7 @@ class AuthControllerTest {
     groupRepository.deleteAll();
     permissionRepository.deleteAll();
 
-    Permission viewPerm = new Permission("product.view", "View products", null);
+    Permission viewPerm = new Permission("item.view", "View items", null);
     permissionRepository.save(viewPerm);
 
     UserGroup group = new UserGroup("Administrators", "Full access");
