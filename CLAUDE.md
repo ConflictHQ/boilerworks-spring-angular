@@ -37,10 +37,10 @@ Read it before writing any code.
 
 | Service  | Port |
 |----------|------|
-| API      | 8086 |
-| Angular  | 4200 |
-| Postgres | 5443 |
-| Redis    | 6386 |
+| API      | 8000 |
+| Angular  | 3000 |
+| Postgres | 5432 |
+| Redis    | 6379 |
 
 ## Quick start
 

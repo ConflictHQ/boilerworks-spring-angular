@@ -52,8 +52,8 @@ make test
 # Full stack
 cd docker && docker compose up -d --build
 
-# API: http://localhost:8086
-# UI:  http://localhost:4200
+# API: http://localhost:8000
+# UI:  http://localhost:3000
 ```
 
 ### Default Credentials
