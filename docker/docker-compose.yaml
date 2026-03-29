@@ -27,8 +27,8 @@ services:
 
   api:
     build:
-      context: ../backend
-      dockerfile: ../docker/Dockerfile.api
+      context: ..
+      dockerfile: docker/Dockerfile.api
     ports:
       - "8000:8086"
     environment:
@@ -46,16 +46,16 @@ services:
       redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8086/health"]
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8086/health || exit 1"]
       interval: 10s
       timeout: 5s
-      retries: 5
-      start_period: 30s
+      retries: 10
+      start_period: 60s
 
   ui:
     build:
-      context: ../frontend
-      dockerfile: ../docker/Dockerfile.ui
+      context: ..
+      dockerfile: docker/Dockerfile.ui
     ports:
       - "3000:80"
     depends_on:
