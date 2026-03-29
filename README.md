@@ -114,3 +114,7 @@ docker/
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and the [stack primer](../primers/spring-angular/PRIMER.md).
+
+---
+
+Boilerworks is a [Conflict](https://weareconflict.com) brand. CONFLICT is a registered trademark of Conflict LLC.
