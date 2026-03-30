@@ -32,21 +32,19 @@ describe('authGuard', () => {
   it('should allow access when authenticated', () => {
     // Set up authenticated user
     authService.fetchCurrentUser().subscribe();
-    httpMock
-      .expectOne(`${environment.apiUrl}/api/auth/me`)
-      .flush({
-        ok: true,
-        data: {
-          id: '1',
-          email: 'a@b.com',
-          firstName: 'A',
-          lastName: 'B',
-          active: true,
-          staff: false,
-          groups: [],
-          permissions: [],
-        },
-      });
+    httpMock.expectOne(`${environment.apiUrl}/api/auth/me`).flush({
+      ok: true,
+      data: {
+        id: '1',
+        email: 'a@b.com',
+        firstName: 'A',
+        lastName: 'B',
+        active: true,
+        staff: false,
+        groups: [],
+        permissions: [],
+      },
+    });
 
     const result = TestBed.runInInjectionContext(() => authGuard({} as any, {} as any));
     expect(result).toBeTrue();

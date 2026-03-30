@@ -18,33 +18,33 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
   ) {}
 
   login(email: string, password: string): Observable<ApiResponse<User>> {
     return this.http
-      .post<ApiResponse<User>>(
-        `${environment.apiUrl}/api/auth/login`,
-        { email, password },
-        { withCredentials: true }
-      )
+      .post<
+        ApiResponse<User>
+      >(`${environment.apiUrl}/api/auth/login`, { email, password }, { withCredentials: true })
       .pipe(
         tap((response) => {
           if (response.ok) {
             this.currentUser.set(response.data);
           }
-        })
+        }),
       );
   }
 
   logout(): Observable<ApiResponse<void>> {
     return this.http
-      .post<ApiResponse<void>>(`${environment.apiUrl}/api/auth/logout`, {}, { withCredentials: true })
+      .post<
+        ApiResponse<void>
+      >(`${environment.apiUrl}/api/auth/logout`, {}, { withCredentials: true })
       .pipe(
         tap(() => {
           this.currentUser.set(null);
           this.router.navigate(['/login']);
-        })
+        }),
       );
   }
 
@@ -60,7 +60,7 @@ export class AuthService {
         catchError(() => {
           this.currentUser.set(null);
           return of({ ok: false, data: null as any });
-        })
+        }),
       );
   }
 

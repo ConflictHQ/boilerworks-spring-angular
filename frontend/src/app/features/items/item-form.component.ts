@@ -20,20 +20,49 @@ import { Category } from '../../core/models/category.model';
         }
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" id="name" [(ngModel)]="name" name="name" required class="form-control" />
+          <input
+            type="text"
+            id="name"
+            [(ngModel)]="name"
+            name="name"
+            required
+            class="form-control"
+          />
         </div>
         <div class="form-group">
           <label for="description">Description</label>
-          <textarea id="description" [(ngModel)]="description" name="description" rows="3" class="form-control"></textarea>
+          <textarea
+            id="description"
+            [(ngModel)]="description"
+            name="description"
+            rows="3"
+            class="form-control"
+          ></textarea>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label for="price">Price</label>
-            <input type="number" id="price" [(ngModel)]="price" name="price" required step="0.01" min="0" class="form-control" />
+            <input
+              type="number"
+              id="price"
+              [(ngModel)]="price"
+              name="price"
+              required
+              step="0.01"
+              min="0"
+              class="form-control"
+            />
           </div>
           <div class="form-group">
             <label for="sku">SKU</label>
-            <input type="text" id="sku" [(ngModel)]="sku" name="sku" required class="form-control" />
+            <input
+              type="text"
+              id="sku"
+              [(ngModel)]="sku"
+              name="sku"
+              required
+              class="form-control"
+            />
           </div>
         </div>
         <div class="form-group">

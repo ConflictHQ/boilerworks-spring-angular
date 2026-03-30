@@ -31,9 +31,11 @@ import { WorkflowDefinition } from '../../core/models/workflow.model';
           <div class="states">
             @for (state of wf.stateMachine.states; track state) {
               <span
-                [class]="'state-badge ' +
+                [class]="
+                  'state-badge ' +
                   (state === wf.stateMachine.initial ? 'initial' : '') +
-                  (wf.stateMachine.terminal.includes(state) ? 'terminal' : '')"
+                  (wf.stateMachine.terminal.includes(state) ? 'terminal' : '')
+                "
               >
                 {{ state }}
                 @if (state === wf.stateMachine.initial) {
@@ -49,7 +51,8 @@ import { WorkflowDefinition } from '../../core/models/workflow.model';
             <h4>Transitions</h4>
             @for (t of wf.stateMachine.transitions; track t.name) {
               <div class="transition-item">
-                <strong>{{ t.name }}</strong>: {{ t.from }} &rarr; {{ t.to }}
+                <strong>{{ t.name }}</strong
+                >: {{ t.from }} &rarr; {{ t.to }}
               </div>
             }
           </div>

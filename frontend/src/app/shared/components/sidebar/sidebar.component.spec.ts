@@ -60,7 +60,7 @@ describe('SidebarComponent', () => {
     expect(navItems.length).toBe(3);
 
     const labels = Array.from(navItems).map((el: any) =>
-      el.querySelector('.nav-label').textContent.trim()
+      el.querySelector('.nav-label').textContent.trim(),
     );
     expect(labels).toContain('Dashboard');
     expect(labels).toContain('Items');

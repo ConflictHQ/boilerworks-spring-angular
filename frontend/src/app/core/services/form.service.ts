@@ -28,22 +28,30 @@ export class FormService {
   }
 
   publish(id: string): Observable<ApiResponse<FormDefinition>> {
-    return this.http.post<ApiResponse<FormDefinition>>(`${this.baseUrl}/${id}/publish`, {}, {
-      withCredentials: true,
-    });
+    return this.http.post<ApiResponse<FormDefinition>>(
+      `${this.baseUrl}/${id}/publish`,
+      {},
+      {
+        withCredentials: true,
+      },
+    );
   }
 
   archive(id: string): Observable<ApiResponse<FormDefinition>> {
-    return this.http.post<ApiResponse<FormDefinition>>(`${this.baseUrl}/${id}/archive`, {}, {
-      withCredentials: true,
-    });
+    return this.http.post<ApiResponse<FormDefinition>>(
+      `${this.baseUrl}/${id}/archive`,
+      {},
+      {
+        withCredentials: true,
+      },
+    );
   }
 
   submit(id: string, data: Record<string, any>): Observable<ApiResponse<FormSubmission>> {
     return this.http.post<ApiResponse<FormSubmission>>(
       `${this.baseUrl}/${id}/submit`,
       { data },
-      { withCredentials: true }
+      { withCredentials: true },
     );
   }
 

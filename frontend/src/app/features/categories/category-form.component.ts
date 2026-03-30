@@ -18,15 +18,34 @@ import { CategoryService } from '../../core/services/category.service';
         }
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" id="name" [(ngModel)]="name" name="name" required class="form-control" />
+          <input
+            type="text"
+            id="name"
+            [(ngModel)]="name"
+            name="name"
+            required
+            class="form-control"
+          />
         </div>
         <div class="form-group">
           <label for="description">Description</label>
-          <textarea id="description" [(ngModel)]="description" name="description" rows="3" class="form-control"></textarea>
+          <textarea
+            id="description"
+            [(ngModel)]="description"
+            name="description"
+            rows="3"
+            class="form-control"
+          ></textarea>
         </div>
         <div class="form-group">
           <label for="sortOrder">Sort Order</label>
-          <input type="number" id="sortOrder" [(ngModel)]="sortOrder" name="sortOrder" class="form-control" />
+          <input
+            type="number"
+            id="sortOrder"
+            [(ngModel)]="sortOrder"
+            name="sortOrder"
+            class="form-control"
+          />
         </div>
         <div class="form-actions">
           <button type="submit" class="btn btn-primary">{{ isEdit ? 'Update' : 'Create' }}</button>

@@ -43,7 +43,9 @@ import { Item } from '../../core/models/item.model';
             @for (item of items(); track item.id) {
               <tr>
                 <td>{{ item.name }}</td>
-                <td><code>{{ item.sku }}</code></td>
+                <td>
+                  <code>{{ item.sku }}</code>
+                </td>
                 <td>{{ item.price | currency }}</td>
                 <td>{{ item.categoryName || '-' }}</td>
                 <td>

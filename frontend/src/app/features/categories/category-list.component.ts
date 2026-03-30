@@ -33,7 +33,9 @@ import { Category } from '../../core/models/category.model';
             @for (cat of categories(); track cat.id) {
               <tr>
                 <td>{{ cat.name }}</td>
-                <td><code>{{ cat.slug }}</code></td>
+                <td>
+                  <code>{{ cat.slug }}</code>
+                </td>
                 <td>{{ cat.description || '-' }}</td>
                 <td>{{ cat.sortOrder }}</td>
                 <td class="actions">

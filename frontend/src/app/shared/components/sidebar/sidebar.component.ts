@@ -22,11 +22,7 @@ interface NavItem {
       </div>
       <nav class="sidebar-nav">
         @for (item of visibleNavItems(); track item.path) {
-          <a
-            [routerLink]="item.path"
-            routerLinkActive="active"
-            class="nav-item"
-          >
+          <a [routerLink]="item.path" routerLinkActive="active" class="nav-item">
             <span class="nav-icon">{{ item.icon }}</span>
             <span class="nav-label">{{ item.label }}</span>
           </a>
@@ -148,7 +144,7 @@ export class SidebarComponent {
 
   visibleNavItems() {
     return this.navItems.filter(
-      (item) => !item.permission || this.auth.hasPermission(item.permission)
+      (item) => !item.permission || this.auth.hasPermission(item.permission),
     );
   }
 

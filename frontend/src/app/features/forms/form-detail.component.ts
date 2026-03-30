@@ -49,7 +49,7 @@ import { FormDefinition, FormSubmission } from '../../core/models/form.model';
                 <span [class]="sub.valid ? 'badge badge-success' : 'badge badge-danger'">
                   {{ sub.valid ? 'Valid' : 'Invalid' }}
                 </span>
-                <span class="submission-date">{{ sub.createdAt | date:'medium' }}</span>
+                <span class="submission-date">{{ sub.createdAt | date: 'medium' }}</span>
               </div>
               <pre>{{ sub.data | json }}</pre>
             </div>
@@ -158,7 +158,9 @@ export class FormDetailComponent implements OnInit {
     this.formService.submit(id, data).subscribe({
       next: (response) => {
         if (response.ok) {
-          this.submitMessage.set(response.data.valid ? 'Submitted successfully' : 'Submitted with validation errors');
+          this.submitMessage.set(
+            response.data.valid ? 'Submitted successfully' : 'Submitted with validation errors',
+          );
           this.submitError.set(!response.data.valid);
           this.formService.getSubmissions(id).subscribe((subs) => this.submissions.set(subs));
         }

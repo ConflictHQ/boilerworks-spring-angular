@@ -42,10 +42,14 @@ import { FormDefinition } from '../../core/models/form.model';
                 <td class="actions">
                   <a [routerLink]="['/forms', form.id]" class="btn btn-sm">View</a>
                   @if (form.status === 'DRAFT' && auth.hasPermission('form.change')) {
-                    <button class="btn btn-sm btn-primary" (click)="onPublish(form)">Publish</button>
+                    <button class="btn btn-sm btn-primary" (click)="onPublish(form)">
+                      Publish
+                    </button>
                   }
                   @if (form.status === 'PUBLISHED' && auth.hasPermission('form.change')) {
-                    <button class="btn btn-sm btn-secondary" (click)="onArchive(form)">Archive</button>
+                    <button class="btn btn-sm btn-secondary" (click)="onArchive(form)">
+                      Archive
+                    </button>
                   }
                 </td>
               </tr>

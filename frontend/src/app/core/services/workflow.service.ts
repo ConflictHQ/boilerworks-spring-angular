@@ -31,7 +31,7 @@ export class WorkflowService {
     return this.http.post<ApiResponse<WorkflowInstance>>(
       `${this.baseUrl}/${definitionId}/start`,
       request,
-      { withCredentials: true }
+      { withCredentials: true },
     );
   }
 
@@ -44,12 +44,12 @@ export class WorkflowService {
   performTransition(
     instanceId: string,
     transition: string,
-    comment?: string
+    comment?: string,
   ): Observable<ApiResponse<WorkflowInstance>> {
     return this.http.post<ApiResponse<WorkflowInstance>>(
       `${this.baseUrl}/instances/${instanceId}/transition`,
       { transition, comment },
-      { withCredentials: true }
+      { withCredentials: true },
     );
   }
 

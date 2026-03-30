@@ -18,28 +18,28 @@ import { AuthService } from '../../core/services/auth.service';
       <div class="dashboard-grid">
         @if (auth.hasPermission('item.view')) {
           <a routerLink="/items" class="dashboard-card">
-            <div class="card-icon">\u2756</div>
+            <div class="card-icon">❖</div>
             <h3>Items</h3>
             <p>Manage item catalogue</p>
           </a>
         }
         @if (auth.hasPermission('category.view')) {
           <a routerLink="/categories" class="dashboard-card">
-            <div class="card-icon">\u2630</div>
+            <div class="card-icon">☰</div>
             <h3>Categories</h3>
             <p>Organize item categories</p>
           </a>
         }
         @if (auth.hasPermission('form.view')) {
           <a routerLink="/forms" class="dashboard-card">
-            <div class="card-icon">\u2611</div>
+            <div class="card-icon">☑</div>
             <h3>Forms</h3>
             <p>Dynamic form builder</p>
           </a>
         }
         @if (auth.hasPermission('workflow.view')) {
           <a routerLink="/workflows" class="dashboard-card">
-            <div class="card-icon">\u21C4</div>
+            <div class="card-icon">⇄</div>
             <h3>Workflows</h3>
             <p>State machine workflows</p>
           </a>
