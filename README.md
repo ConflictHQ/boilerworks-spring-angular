@@ -113,7 +113,7 @@ docker/
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) and the [stack primer](../primers/spring-angular/PRIMER.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md) and the conventions in [bootstrap.md](bootstrap.md).
 
 ---
 

@@ -35,12 +35,16 @@ Read it before writing any code.
 
 ## Ports
 
+Local dev (`make dev` + `./gradlew bootRun` + `npx ng serve`) — matches `bootstrap.md`:
+
 | Service  | Port |
 |----------|------|
-| API      | 8000 |
-| Angular  | 3000 |
-| Postgres | 5432 |
-| Redis    | 6379 |
+| API      | 8086 |
+| Angular  | 4200 |
+| Postgres | 5443 |
+| Redis    | 6386 |
+
+Docker Compose host mappings (`docker/docker-compose.yaml`) are different: API 8000, UI 3000, Postgres 5432, Redis 6379. Known mismatch: the compose Postgres/Redis host ports do not currently line up with the app's dev defaults above — see issue #38.
 
 ## Quick start
 

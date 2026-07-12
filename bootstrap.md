@@ -48,4 +48,11 @@
 
 ## Build Order
 
-See the [stack primer](../primers/spring-angular/PRIMER.md) for the full build order.
+The template was built in this order — extend it the same way:
+
+1. **Scaffolding** — Spring Boot project (Gradle), Spring Data JPA + Flyway, Angular app, Docker Compose (postgres, redis, api, ui), health check, Checkstyle.
+2. **Auth + permissions** — Spring Security session auth (httpOnly cookies, Redis sessions), User/Group/Permission entities + seed data, `@PreAuthorize` on every controller method, Angular auth guard + permission service.
+3. **Core API** — REST controllers with the `ApiResponse<T>` wrapper, JPA auditing (`AuditableEntity`), soft-delete pattern, Angular CRUD services + components.
+4. **Forms engine** — form definitions, field types, validation, publish/submit lifecycle.
+5. **Workflow engine** — workflow definition/instance entities, state machine transitions.
+6. **Infrastructure + polish** — feature toggles, seed data, CI pipeline, docs.
